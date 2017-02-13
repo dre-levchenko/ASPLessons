@@ -4,14 +4,14 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
-namespace Guestbook.Models
+namespace Guestbook.Models.ViewModels
 {
-    public class User
+    public class LoginModel
     {
-        public int Id { get; set; }
         [Required]
         public string Name { get; set; }
         [Required]
+        [DataType(DataType.Password)]
         public string Password { get; set; }
     }
 }

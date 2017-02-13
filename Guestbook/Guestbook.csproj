@@ -161,13 +161,27 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201702131301397_AddIdUser.cs" />
+    <Compile Include="Migrations\201702131301397_AddIdUser.Designer.cs">
+      <DependentUpon>201702131301397_AddIdUser.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201702131330147_MoveIdUser.cs" />
+    <Compile Include="Migrations\201702131330147_MoveIdUser.Designer.cs">
+      <DependentUpon>201702131330147_MoveIdUser.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201702131403130_DeleteIdUser.cs" />
+    <Compile Include="Migrations\201702131403130_DeleteIdUser.Designer.cs">
+      <DependentUpon>201702131403130_DeleteIdUser.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\GuestbookContext.cs" />
     <Compile Include="Models\GuestbookDbInitializer.cs" />
     <Compile Include="Models\Message.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\Security\MD5Hasher.cs" />
+    <Compile Include="Models\ViewModels\LoginModel.cs" />
+    <Compile Include="Models\ViewModels\RegisterModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ViewModels\GuestbookViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
@@ -226,6 +240,17 @@
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201702131301397_AddIdUser.resx">
+      <DependentUpon>201702131301397_AddIdUser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201702131330147_MoveIdUser.resx">
+      <DependentUpon>201702131330147_MoveIdUser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201702131403130_DeleteIdUser.resx">
+      <DependentUpon>201702131403130_DeleteIdUser.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

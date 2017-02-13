@@ -6,6 +6,19 @@
 
 <h2>Messages</h2>
 
+<h1>
+    Hello, 
+    @if (Session["Name"] != null)
+    {
+        @Session["Name"].ToString();
+    }
+    else
+    {
+        @Html.DisplayText("Stranger");
+    }
+    !
+</h1>
+
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
@@ -30,5 +43,6 @@
             </td>
         </tr>
     </table>
-   
 }
+
+

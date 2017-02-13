@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Guestbook.Models;
+using Guestbook.Models.ViewModels;
 
 namespace Guestbook.Controllers
 {
@@ -44,20 +45,22 @@ namespace Guestbook.Controllers
         // POST: Users/Login
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Login([Bind(Include = "Id,Name,Password")] User user)
+        public ActionResult Login(LoginModel logon)
         {
             if (ModelState.IsValid)
             {
-                var dbUser = db.Users.FirstOrDefault(u => u.Name == user.Name);
+                var dbUser = db.Users.FirstOrDefault(u => u.Name == logon.Name);
+
                 if (dbUser != null &&
-                    dbUser.Password == Models.Security.MD5Hasher.ComputeHash(user.Password) &&
-                    string.Equals(dbUser.Name, user.Name))
+                    dbUser.Password == Models.Security.MD5Hasher.ComputeHash(logon.Password) &&
+                    string.Equals(dbUser.Name, logon.Name))
                 {
+                    Session["Name"] = logon.Name;
                     return RedirectToAction("Index");
                 }
             }
 
-            return View(user);
+            return View(logon);
         }
 
         // GET: Users/Register
@@ -69,17 +72,32 @@ namespace Guestbook.Controllers
         // POST: Users/Register
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Register([Bind(Include = "Id,Name,Password")] User user)
+        public ActionResult Register(RegisterModel register)
         {
             if (ModelState.IsValid)
             {
-                user.Password = Models.Security.MD5Hasher.ComputeHash(user.Password);
-                db.Users.Add(user);
-                db.SaveChanges();
-                return RedirectToAction("Login");
+                var dbUser = db.Users.FirstOrDefault(u => u.Name == register.Name);
+                
+                if (dbUser == null || !string.Equals(dbUser.Name, register.Name))
+                {
+                    register.Password = Models.Security.MD5Hasher.ComputeHash(register.Password);
+
+                    db.Users.Add(new User
+                    {
+                        Name = register.Name,
+                        Password = register.Password
+                    });
+                    db.SaveChanges();
+
+                    return RedirectToAction("Login");
+                }
+                else
+                {
+
+                }
             }
 
-            return View(user);
+            return View(register);
         }
 
         // GET: Users/Edit/5
@@ -139,6 +157,8 @@ namespace Guestbook.Controllers
 
         protected override void Dispose(bool disposing)
         {
+            Session.Abandon();
+
             if (disposing)
             {
                 db.Dispose();
