@@ -164,10 +164,10 @@
     <Compile Include="Models\GuestbookContext.cs" />
     <Compile Include="Models\GuestbookDbInitializer.cs" />
     <Compile Include="Models\Message.cs" />
-    <Compile Include="Models\Session.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\Security\MD5Hasher.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\GuestbookViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />

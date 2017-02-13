@@ -3,10 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace Guestbook.Models
+namespace Guestbook.ViewModels
 {
-    public class Session
+    public class GuestbookViewModel
     {
-
     }
 }

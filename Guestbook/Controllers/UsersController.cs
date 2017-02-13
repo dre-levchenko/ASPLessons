@@ -42,8 +42,6 @@ namespace Guestbook.Controllers
         }
 
         // POST: Users/Login
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Login([Bind(Include = "Id,Name,Password")] User user)
@@ -52,7 +50,8 @@ namespace Guestbook.Controllers
             {
                 var dbUser = db.Users.FirstOrDefault(u => u.Name == user.Name);
                 if (dbUser != null &&
-                    dbUser.Password == Models.Security.MD5Hasher.ComputeHash(user.Password))
+                    dbUser.Password == Models.Security.MD5Hasher.ComputeHash(user.Password) &&
+                    string.Equals(dbUser.Name, user.Name))
                 {
                     return RedirectToAction("Index");
                 }
@@ -68,8 +67,6 @@ namespace Guestbook.Controllers
         }
 
         // POST: Users/Register
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Register([Bind(Include = "Id,Name,Password")] User user)
@@ -79,7 +76,7 @@ namespace Guestbook.Controllers
                 user.Password = Models.Security.MD5Hasher.ComputeHash(user.Password);
                 db.Users.Add(user);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Login");
             }
 
             return View(user);
@@ -101,8 +98,6 @@ namespace Guestbook.Controllers
         }
 
         // POST: Users/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Id,Name,Password")] User user)
