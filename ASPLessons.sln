@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CRUD", "CRUD\CRUD.csproj", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Guestbook", "Guestbook\Guestbook.csproj", "{1159D5C2-2239-48B5-8EC3-E08E25B77910}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MusicPortal", "MusicPortal\MusicPortal.csproj", "{7590BE0D-2BEA-419B-BAA8-EAE4622DF931}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{1159D5C2-2239-48B5-8EC3-E08E25B77910}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1159D5C2-2239-48B5-8EC3-E08E25B77910}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1159D5C2-2239-48B5-8EC3-E08E25B77910}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7590BE0D-2BEA-419B-BAA8-EAE4622DF931}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7590BE0D-2BEA-419B-BAA8-EAE4622DF931}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7590BE0D-2BEA-419B-BAA8-EAE4622DF931}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7590BE0D-2BEA-419B-BAA8-EAE4622DF931}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
