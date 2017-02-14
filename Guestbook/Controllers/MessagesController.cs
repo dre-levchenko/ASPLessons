@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Guestbook.Models;
+using Guestbook.Models.ViewModels;
 
 namespace Guestbook.Controllers
 {
@@ -18,7 +19,26 @@ namespace Guestbook.Controllers
         public ActionResult Index()
         {
             var messages = db.Messages.Include(m => m.User);
-            return View(messages.ToList());
+            return View(new MessagesModel()
+            {
+                NewMessage = new Message(),
+                Messages = messages.ToList()
+            });
+        }
+
+        // POST: Messages
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Index(MessagesModel messagesModel)
+        {
+            if (messagesModel != null)
+            {
+                Create(messagesModel.NewMessage);
+            }
+
+            var messages = db.Messages.Include(m => m.User);
+            messagesModel.Messages = messages.ToList();
+            return View(messagesModel);
         }
 
         // GET: Messages/Details/5
@@ -48,10 +68,21 @@ namespace Guestbook.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id,MessageBody,MessageDate,UserId")] Message message)
         {
-            if (ModelState.IsValid)
+            if (ModelState.IsValid && Session["Id"] != null)
             {
+                var sessionUser = new User()
+                {
+                    Id = Convert.ToInt32(Session["Id"]),
+                    Name = Session["Name"].ToString()
+                };
+                var dbUser = db.Users.FirstOrDefault(u => u.Id == sessionUser.Id);
+
+                message.MessageDate = DateTime.Now;
+                message.User = dbUser;
+
                 db.Messages.Add(message);
                 db.SaveChanges();
+
                 return RedirectToAction("Index");
             }
 

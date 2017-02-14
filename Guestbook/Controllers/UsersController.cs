@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using Guestbook.Models;
 using Guestbook.Models.ViewModels;
+using Guestbook.Models.Security;
 
 namespace Guestbook.Controllers
 {
@@ -50,17 +51,29 @@ namespace Guestbook.Controllers
             if (ModelState.IsValid)
             {
                 var dbUser = db.Users.FirstOrDefault(u => u.Name == logon.Name);
-
-                if (dbUser != null &&
-                    dbUser.Password == Models.Security.MD5Hasher.ComputeHash(logon.Password) &&
+                
+                if (dbUser == null ||
+                    dbUser.Password != MD5Hasher.ComputeHash(logon.Password))
+                {
+                    ModelState.AddModelError("", "Wrong login or password!");
+                    return View(logon);
+                }
+                else if (dbUser != null &&
+                    dbUser.Password == MD5Hasher.ComputeHash(logon.Password) &&
                     string.Equals(dbUser.Name, logon.Name))
                 {
                     Session["Name"] = logon.Name;
-                    return RedirectToAction("Index");
+                    Session["Id"] = dbUser.Id;
+                    return RedirectToAction("Index", "Messages");
                 }
             }
 
             return View(logon);
+        }
+        public ActionResult Logout()
+        {
+            Session.Abandon();
+            return RedirectToAction("Login", "Users");
         }
 
         // GET: Users/Register
@@ -93,7 +106,8 @@ namespace Guestbook.Controllers
                 }
                 else
                 {
-
+                    ModelState.AddModelError("", "Such username exists!");
+                    return View(register);
                 }
             }
 
@@ -157,8 +171,6 @@ namespace Guestbook.Controllers
 
         protected override void Dispose(bool disposing)
         {
-            Session.Abandon();
-
             if (disposing)
             {
                 db.Dispose();
