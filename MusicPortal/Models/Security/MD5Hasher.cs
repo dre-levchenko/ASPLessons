@@ -1,7 +1,7 @@
 ﻿using System.Security.Cryptography;
 using System.Text;
 
-namespace Guestbook.Models.Security
+namespace MusicPortal.Models.Security
 {
     static class MD5Hasher
     {
