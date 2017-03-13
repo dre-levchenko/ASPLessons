@@ -3,16 +3,16 @@
 <head>
     <title>Calendar</title>
 	<meta charset="utf-8" />
-    <!--<script src="script.js"></script>-->
 </head>
 <body>
     <canvas id='calendar' width="1000" height="1000"></canvas>
     <script>
         'use strict'
         var calendarCols = 7;
-        var calendarRows = 0;
+        var calendarRows = 1;
         var cellWidth = 100;
         var cellHeight = 80;
+        var daysOfWeek = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
 
         var currentDate = new Date();
         var currentMonth = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
@@ -25,7 +25,9 @@
             case 9:
             case 11:
                 if (currentMonth.getDay() > 4) {
-                    calendarRows = 6;
+                    calendarRows += 6;
+                } else {
+                    calendarRows += 5;
                 }
                 break;
             case 3:
@@ -33,23 +35,32 @@
             case 8:
             case 10:
                 if (currentMonth.getDay() > 5) {
-                    calendarRows = 6;
+                    calendarRows += 6;
+                } else {
+                    calendarRows += 5;
                 }
                 break;
-            default:
-                calendarRows = 5;
         }
 
         var calendarCanvas = document.getElementById('calendar');
         var context = calendarCanvas.getContext("2d");
+        context.font = '20px arial';
 
+        currentMonth.setDate(currentMonth.getDate() - currentMonth.getDay() + 1);
         for (var i = 0; i < calendarRows; i++) {
             for (var j = 0; j < calendarCols; j++) {
                 context.strokeRect(j * cellWidth, i * cellHeight, cellWidth, cellHeight);
-                context.fillText("text", j * cellWidth - cellWidth / 2, i * cellHeight - cellHeight / 2);
+                if (i == 0) {
+                    context.fillText(daysOfWeek[j], j * cellWidth + cellWidth / 2, i * cellHeight + cellHeight / 2);
+                    continue;
+                }
+                if (j > 4) {
+
+                }
+                context.fillText(currentMonth.getDate(), j * cellWidth + cellWidth / 2, i * cellHeight + cellHeight / 2);
+                currentMonth.setDate(currentMonth.getDate() + 1);
             }
         }
-        
     </script>
 </body>
 </html>

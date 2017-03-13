@@ -13,6 +13,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MusicPortal", "MusicPortal\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JSCalendar", "JSCalendar\JSCalendar.csproj", "{0AF0B7F6-572D-45B2-96C3-3CF866966AD6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JSModernClock", "JSModernClock\JSModernClock.csproj", "{F41B63E2-9169-4B88-8268-A43FAA52E462}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JSClassicClock", "JSClassicClock\JSClassicClock.csproj", "{5BB16C96-59C6-4DC3-B85F-62571943B7DD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +43,14 @@ Global
 		{0AF0B7F6-572D-45B2-96C3-3CF866966AD6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0AF0B7F6-572D-45B2-96C3-3CF866966AD6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0AF0B7F6-572D-45B2-96C3-3CF866966AD6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F41B63E2-9169-4B88-8268-A43FAA52E462}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F41B63E2-9169-4B88-8268-A43FAA52E462}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F41B63E2-9169-4B88-8268-A43FAA52E462}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F41B63E2-9169-4B88-8268-A43FAA52E462}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5BB16C96-59C6-4DC3-B85F-62571943B7DD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5BB16C96-59C6-4DC3-B85F-62571943B7DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5BB16C96-59C6-4DC3-B85F-62571943B7DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5BB16C96-59C6-4DC3-B85F-62571943B7DD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

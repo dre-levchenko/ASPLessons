@@ -1,0 +1,102 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Modern Clock</title>
+	<meta charset="utf-8" />
+</head>
+<body>
+    <canvas id="clock"></canvas>
+    <script>
+        var clockCanvas = document.getElementById("clock"),
+        ctx = clockCanvas.getContext('2d');
+        clockCanvas.width = 900;
+        clockCanvas.height = 450;
+
+        function doTick() {
+            ctx.clearRect(0, 0, 1000, 1000);
+            var time = new Date();
+
+            if (time.getHours() > 9) {
+                var pic11 = new Image(),
+                    pic12 = new Image();
+                pic11.src = './clock/' + time.getHours().toString().slice(0, 1) + '.gif';
+                pic11.onload = function () {
+                    ctx.drawImage(pic11, 0, 0);
+                }
+                pic12.src = './clock/' + time.getHours().toString().slice(1, 2) + '.gif';
+                pic12.onload = function () {
+                    ctx.drawImage(pic12, 100, 0);
+                }
+            } else {
+                var pic13 = new Image(),
+                    pic14 = new Image();
+                pic13.src = './clock/0.gif';
+                pic13.onload = function () {
+                    ctx.drawImage(pic13, 600, 0);
+                }
+                pic14.src = './clock/' + time.getHours().toString() + '.gif';
+                pic14.onload = function () {
+                    ctx.drawImage(pic14, 700, 0);
+                }
+            }
+
+            if (time.getMinutes() > 9) {
+                var pic21 = new Image(),
+                    pic22 = new Image();
+                pic21.src = './clock/' + time.getMinutes().toString().slice(0, 1) + '.gif';
+                pic21.onload = function () {
+                    ctx.drawImage(pic21, 300, 0);
+                }
+                pic22.src = './clock/' + time.getMinutes().toString().slice(1, 2) + '.gif';
+                pic22.onload = function () {
+                    ctx.drawImage(pic22, 400, 0);
+                }
+            } else {
+                var pic23 = new Image(),
+                    pic24 = new Image();
+                pic23.src = './clock/0.gif';
+                pic23.onload = function () {
+                    ctx.drawImage(pic23, 600, 0);
+                }
+                pic24.src = './clock/' + time.getMinutes().toString() + '.gif';
+                pic24.onload = function () {
+                    ctx.drawImage(pic24, 700, 0);
+                }
+            }
+
+            if (time.getSeconds() > 9) {
+                var pic31 = new Image(),
+                    pic32 = new Image();
+                pic31.src = './clock/' + time.getSeconds().toString().slice(0, 1) + '.gif';
+                pic31.onload = function () {
+                    ctx.drawImage(pic31, 600, 0);
+                }
+                pic32.src = './clock/' + time.getSeconds().toString().slice(1, 2) + '.gif';
+                pic32.onload = function () {
+                    ctx.drawImage(pic32, 700, 0);
+                }
+            } else {
+                var pic33 = new Image(),
+                    pic34 = new Image();
+                pic33.src = './clock/0.gif';
+                pic33.onload = function () {
+                    ctx.drawImage(pic33, 600, 0);
+                }
+                pic34.src = './clock/' + time.getSeconds().toString() + '.gif';
+                pic34.onload = function () {
+                    ctx.drawImage(pic34, 700, 0);
+                }
+            }
+
+            var points = new Image();
+            points.src = './clock/points.gif';
+            points.onload = function () {
+                ctx.drawImage(points, 200, 0);
+                ctx.drawImage(points, 500, 0);
+            }
+        }
+
+        setInterval("doTick()", 500);
+    </script>
+</body>
+</html>

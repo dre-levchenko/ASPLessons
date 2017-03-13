@@ -1,0 +1,80 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Classic Clock</title>
+	<meta charset="utf-8" />
+</head>
+<body>
+    <canvas id="clock"></canvas>
+    <script>
+        var clockCanvas = document.getElementById("clock"),
+        ctx = clockCanvas.getContext('2d');
+        clockCanvas.width = 1500;
+        clockCanvas.height = 1500;
+
+        var OX = 610,
+            OY = 310,
+            R = 300,
+            A = 0,
+            dA = 6 * Math.PI / 180,
+            delay = 30;
+
+        function drawClockFace() {
+            var smallRectSize = 5,
+                bigRectSize = 15;
+            //ctx.arc(OX, OY, bigRectSize, 0, 360);
+            //ctx.fill();
+            for (var i = 0; i < 60; ++i)
+            {
+                if (i % 5 == 0) {
+                    ctx.fillRect((OX + R * Math.cos(A)) - bigRectSize / 2,
+                        (OY + R * Math.sin(A)) - bigRectSize / 2,
+                        bigRectSize, bigRectSize);
+                } else {
+                    ctx.fillRect((OX + R * Math.cos(A)) - smallRectSize / 2,
+                        (OY + R * Math.sin(A)) - smallRectSize / 2,
+                        smallRectSize, smallRectSize);
+                }
+                A += dA;
+            }
+        }
+
+        function drawTime(ctx, radius) {
+            var now = new Date();
+            var hour = now.getHours();
+            var minute = now.getMinutes();
+            var second = now.getSeconds();
+            //hour
+            hour = hour % 12;
+            hour = (hour * Math.PI / 6) +
+            (minute * Math.PI / (6 * 60)) +
+            (second * Math.PI / (360 * 60));
+            drawHand(ctx, hour, radius * 0.5, radius * 0.07);
+            //minute
+            minute = (minute * Math.PI / 30) + (second * Math.PI / (30 * 60));
+            drawHand(ctx, minute, radius * 0.8, radius * 0.07);
+            // second
+            second = (second * Math.PI / 30);
+            drawHand(ctx, second, radius * 0.9, radius * 0.02);
+        }
+
+        function drawHand(ctx, pos, length, width) {
+            ctx.beginPath();
+            ctx.lineWidth = width;
+            ctx.lineCap = "round";
+            ctx.moveTo(OX, OY);
+            ctx.rotate(pos);
+            ctx.lineTo(R, -length);
+            ctx.stroke();
+            ctx.rotate(-pos);
+        }
+
+        function drawClock() {
+            ctx.clearRect(0, 0, 1000, 1000);
+            drawClockFace();
+            drawTime(ctx, R);
+        }
+        setInterval("drawClock()", 500);
+    </script>
+</body>
+</html>

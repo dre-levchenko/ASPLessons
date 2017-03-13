@@ -1,0 +1,13 @@
+﻿@{
+    ViewBag.Title = "Notification";
+}
+
+<h2>Notification</h2>
+
+<p>
+    @if (Session["Notification"] != null)
+    {
+        @Session["Notification"].ToString();
+    }
+</p>
+<p><a class="btn btn-default" href="\Home\Index">Go to main page &raquo;</a></p>

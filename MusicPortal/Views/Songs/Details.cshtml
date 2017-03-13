@@ -1,0 +1,66 @@
+﻿@model MusicPortal.Models.Song
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Song</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Title)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Title)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Author)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Author)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Album)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Album)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Year)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Year)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Genres)
+        </dt>
+
+        <dd>
+            <div class="form-group">
+                <div class="col-md-10">
+                    @{
+                        foreach (var item in Model.Genres)
+                        {
+                            <div>@Html.DisplayFor(modelItem => item.Name)</div>
+                        }
+                    }
+                </div>
+            </div>
+        </dd>
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    <p><a href="\Songs\Index" class="">Back to list &raquo;</a></p>
+</p>

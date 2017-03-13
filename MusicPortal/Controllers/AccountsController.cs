@@ -20,7 +20,22 @@ namespace MusicPortal.Controllers
         // GET: Accounts
         public ActionResult Index()
         {
-            return View();
+            return View(db.Users.ToList());
+        }
+
+        // GET: Acounts/Details/5
+        public ActionResult Details(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            User user = db.Users.Find(id);
+            if (user == null)
+            {
+                return HttpNotFound();
+            }
+            return View(user);
         }
 
         // GET: Accounts/Login
@@ -44,7 +59,7 @@ namespace MusicPortal.Controllers
                     ModelState.AddModelError("", "Wrong login or password!");
                     return View(logon);
                 }
-                else if (dbUser != null &&
+                else if (dbUser != null && 
                     dbUser.Password == MD5Hasher.ComputeHash(logon.Password) &&
                     string.Equals(dbUser.Name, logon.Name))
                 {
@@ -52,18 +67,26 @@ namespace MusicPortal.Controllers
                     {
                         Session["IsAdmin"] = true;
                     }
+                    else if (!dbUser.IsActive)
+                    {
+                        Session["Notification"] = "An application for registration, which you have applied, had not yet reviewed the portal administrators try to log in later.";
+                        return RedirectToAction("Notification", "Accounts");
+                    }
                     else
                     {
                         Session["IsAdmin"] = null;
                     }
                     Session["Name"] = logon.Name;
                     Session["Id"] = dbUser.Id;
+
                     return RedirectToAction("Index", "Home");
                 }
             }
 
             return View(logon);
         }
+
+        // GET: Accounts/Logout
         public ActionResult Logout()
         {
             Session.Abandon();
@@ -92,11 +115,13 @@ namespace MusicPortal.Controllers
                     db.Users.Add(new User
                     {
                         Name = register.Name,
-                        Password = register.Password
+                        Password = register.Password,
+                        IsActive = false
                     });
                     db.SaveChanges();
 
-                    return RedirectToAction("Login");
+                    Session["Notification"] = "Your registration is accepted. Wait for review of its portal administrator. Try to log in later, when it is confirmed.";
+                    return RedirectToAction("Notification", "Accounts");
                 }
                 else
                 {
@@ -106,6 +131,67 @@ namespace MusicPortal.Controllers
             }
 
             return View(register);
+        }
+
+        // GET: Accounts/Notification
+        public ActionResult Notification()
+        {
+            return View();
+        }
+
+        // GET: Accounts/Edit/5
+        public ActionResult Edit(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            User user = db.Users.Find(id);
+            if (user == null)
+            {
+                return HttpNotFound();
+            }
+            return View(user);
+        }
+
+        // POST: Accounts/Edit/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit([Bind(Include = "Id,Name,Password,IsActive")] User user)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Entry(user).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View(user);
+        }
+
+        // GET: Accounts/Delete/5
+        public ActionResult Delete(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            User student = db.Users.Find(id);
+            if (student == null)
+            {
+                return HttpNotFound();
+            }
+            return View(student);
+        }
+
+        // POST: Accounts/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed(int id)
+        {
+            User user = db.Users.Find(id);
+            db.Users.Remove(user);
+            db.SaveChanges();
+            return RedirectToAction("Index");
         }
     }
 }

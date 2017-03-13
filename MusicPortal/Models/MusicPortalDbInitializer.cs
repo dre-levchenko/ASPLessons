@@ -14,7 +14,8 @@ namespace MusicPortal.Models
             context.Users.Add(new User
             {
                 Name = "admin",
-                Password = MD5Hasher.ComputeHash("admin")
+                Password = MD5Hasher.ComputeHash("admin"),
+                IsActive = true
             });
 
             base.Seed(context);
