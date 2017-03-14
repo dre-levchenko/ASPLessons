@@ -8,7 +8,6 @@ namespace MusicPortal.Models.ViewModels
     public class SongsModel
     {
         public Song NewSong { get; set; }
-        public IEnumerable<HttpPostedFileBase> FileUpload { get; set; }
-
+        public IList<Genre> AllGenres { get; set; }
     }
 }
