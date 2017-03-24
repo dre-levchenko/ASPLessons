@@ -14,7 +14,7 @@ namespace CRUD.Controllers
     {
         private StudentContext db = new StudentContext();
 
-        // GET: Students
+        // GET: Students    
         public ActionResult Index()
         {
             return View(db.Students.ToList());

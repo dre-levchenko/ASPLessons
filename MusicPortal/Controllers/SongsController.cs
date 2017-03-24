@@ -9,6 +9,7 @@ using System.Web.Mvc;
 using MusicPortal.Models;
 using MusicPortal.Models.ViewModels;
 using System.IO;
+using MusicPortal.Models.Security;
 
 namespace MusicPortal.Controllers
 {
@@ -65,21 +66,11 @@ namespace MusicPortal.Controllers
                         }
                     }
                 }
-
                 if (fileUpload == null)
                 {
                     ModelState.AddModelError("", "Фаил не указан!");
                 }
-                foreach (var item in db.Songs)
-                {
-                    if (item.FilePath == fileUpload.FileName)
-                    {
-                        ViewBag.Continents = db.Genres.ToList();
-                        ModelState.AddModelError("", "Фаил: " + fileUpload.FileName + " уже существует!");
-                        return View(song);
-                    }
-                }
-                string filename = Path.GetFileName(fileUpload.FileName);
+                string filename = MD5Hasher.ComputeHash(DateTime.Now.ToString()) + Path.GetExtension(fileUpload.FileName);
                 string tempfolder = Server.MapPath("~/Songs");
                 if (filename != null)
                 {
@@ -106,24 +97,33 @@ namespace MusicPortal.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+            ViewBag.Genres = db.Genres.ToList();
             Song song = db.Songs.Include(g => g.Genres).FirstOrDefault(g => g.Id == id);
             if (song == null)
             {
                 return HttpNotFound();
             }
-            return View(song);
+            return View(new SongModel()
+            {
+                Album = song.Album,
+                Author = song.Author,
+                Genres = song.Genres,
+                Id = song.Id,
+                Title = song.Title,
+                Year = song.Year
+            });
         }
 
         // POST: Songs/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Title,Author,Album,Year,Publisher,Genre")] Song song, string[] selectedGenres)
+        public ActionResult Edit([Bind(Include = "Id,Title,Author,Album,Year,Publisher,Genre")] SongModel song, string[] selectedGenres)
         {
             if (ModelState.IsValid)
             {
                 song.Genres = new List<Genre>();
 
-                if (selectedGenres != null)
+                if (selectedGenres != null) 
                 {
                     foreach (var item in selectedGenres)
                     {
@@ -136,7 +136,14 @@ namespace MusicPortal.Controllers
                     }
                 }
 
-                db.Entry(song).State = EntityState.Modified;
+                var dbSong = db.Songs.Include(p => p.Publisher).FirstOrDefault(s => s.Id == song.Id);
+                dbSong.Album = song.Album;
+                dbSong.Author = song.Author;
+                dbSong.Genres = song.Genres;
+                dbSong.Title = song.Title;
+                dbSong.Year = song.Year;
+
+                db.Entry(dbSong).State = EntityState.Modified;
                 db.SaveChanges();
                 return View("Index", db.Songs.ToList());
             }

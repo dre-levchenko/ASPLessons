@@ -1,4 +1,5 @@
-﻿@model MusicPortal.Models.Song
+﻿@model MusicPortal.Models.ViewModels.SongModel
+@using MusicPortal.Models
 
 @{
     ViewBag.Title = "Edit";
@@ -52,29 +53,33 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Genres, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                    @foreach (var item in Model.Genres)
-                    {
-                        if (Model.Genres.Contains(item))
+                    @{
+                        List<Genre> genres = ViewBag.Genres;
+                        foreach (var item in genres)
                         {
-                            <input type="checkbox" name="selectedGenres" value="@item.Id" checked />@item.Name<br />
-                        }
-                        else
-                        {
-                            <input type="checkbox" name="selectedGenres" value="@item.Id" />@item.Name<br />
+                            if (Model.Genres.Contains(item))
+                            {
+                                <input type="checkbox" name="selectedGenres" value="@item.Id" checked />@item.Name<br />
+                            }
+                            else
+                            {
+                                <input type="checkbox" name="selectedGenres" value="@item.Id" />@item.Name<br />
+                            }
                         }
                     }
             </div>
-        </div>
+        </div>  
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
+                <input type="submit" name="Submit" id="SubmitMultiply" value="Upload" />
             </div>
         </div>
     </div>
 }
 
-<div>
+<div> 
+    @Html.ActionLink("Back to List", "Index")
     <p><a href="\Songs\Index" class="">Back to list &raquo;</a></p>
 </div>
 
