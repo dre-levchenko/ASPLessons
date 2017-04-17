@@ -14,7 +14,7 @@ namespace MusicPortal.Models
         [Required]
         public string Author { get; set; }
         public string Album { get; set; }
-        public IList<Genre> Genres { get; set; }
+        public List<Genre> Genres { get; set; }
         public User Publisher { get; set; }
         public int Year { get; set; }
         public string FilePath { get; set; }

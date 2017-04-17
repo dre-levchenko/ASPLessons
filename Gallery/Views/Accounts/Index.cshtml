@@ -11,9 +11,6 @@
         <th>
             @Html.DisplayNameFor(model => model.Name)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.IsActive)
-        </th>
         <th></th>
     </tr>
 
@@ -21,9 +18,6 @@
     <tr>
         <td>
             @Html.DisplayFor(modelItem => item.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.IsActive)
         </td>
         <td>
             @if (Session["IsAdmin"] != null)

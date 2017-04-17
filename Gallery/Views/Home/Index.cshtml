@@ -1,4 +1,6 @@
-﻿@{
+﻿@model Gallery.Models.User
+
+@{
     ViewBag.Title = "Home Page";
 }
 
@@ -6,16 +8,14 @@
 {
     <div class="jumbotron">
         <h1>Admin Room</h1>
-        <p class="lead">This is cabinet for administrators of this web site. If you see this - you logged in as administrator.</p>
+        <p class="lead">This is cabinet for administrators of this web site.</p>
     </div>
 }
-else
+else if (Session["Name"] != null)
 {
     <div class="jumbotron">
-        <h1>Gallery</h1>
-        <p class="lead">Welcome to the Gallery. This is a free web platform for sharing great pictures for your soul.</p>
-        <p><a href="\Home\About" class="btn btn-primary btn-lg">About &raquo;</a></p>
-        <p><a href="\Home\Contact" class="btn btn-primary btn-lg">Contact &raquo;</a></p>
+        <h1>Hello @Model.Name!</h1>
+        <p class="lead">Welcome to the Gallery.</p>
     </div>
 }
 

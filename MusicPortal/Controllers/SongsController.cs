@@ -9,6 +9,7 @@ using System.Web.Mvc;
 using MusicPortal.Models;
 using MusicPortal.Models.ViewModels;
 using System.IO;
+using MusicPortal.Models.Security;
 
 namespace MusicPortal.Controllers
 {
@@ -19,8 +20,7 @@ namespace MusicPortal.Controllers
         // GET: Songs
         public ActionResult Index()
         {
-            var songs = db.Songs;
-            return View(songs.ToList());
+            return View(db.Songs.ToList());
         }
 
         // GET: Songs/Details/5
@@ -68,18 +68,9 @@ namespace MusicPortal.Controllers
 
                 if (fileUpload == null)
                 {
-                    ModelState.AddModelError("", "Фаил не указан!");
+                    ModelState.AddModelError("", "Файл не указан!");
                 }
-                foreach (var item in db.Songs)
-                {
-                    if (item.FilePath == fileUpload.FileName)
-                    {
-                        ViewBag.Continents = db.Genres.ToList();
-                        ModelState.AddModelError("", "Фаил: " + fileUpload.FileName + " уже существует!");
-                        return View(song);
-                    }
-                }
-                string filename = Path.GetFileName(fileUpload.FileName);
+                string filename = MD5Hasher.ComputeHash(Path.GetFileName(fileUpload.FileName) + DateTime.Now) + Path.GetExtension(fileUpload.FileName);
                 string tempfolder = Server.MapPath("~/Songs");
                 if (filename != null)
                 {
@@ -92,7 +83,7 @@ namespace MusicPortal.Controllers
                 song.Publisher = publisher;
                 db.Songs.Add(song);
                 db.SaveChanges();
-
+                
                 return View("Index", db.Songs.ToList());
             }
 
@@ -111,6 +102,7 @@ namespace MusicPortal.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.Genres = db.Genres.ToList();
             return View(song);
         }
 
@@ -121,7 +113,13 @@ namespace MusicPortal.Controllers
         {
             if (ModelState.IsValid)
             {
-                song.Genres = new List<Genre>();
+                Song mus = db.Songs.Include(g => g.Genres).FirstOrDefault(s => s.Id == song.Id);
+                mus.Album = song.Album;
+                mus.Author = song.Author;
+                mus.Title = song.Title;
+                mus.Year = song.Year;
+                mus.Genres.RemoveRange(0, mus.Genres.Count);
+                ViewBag.Genres = db.Genres.ToList();
 
                 if (selectedGenres != null)
                 {
@@ -131,15 +129,16 @@ namespace MusicPortal.Controllers
                         var genre = db.Genres.FirstOrDefault(g => g.Id == genreId);
                         if (genre != null)
                         {
-                            song.Genres.Add(genre);
+                            mus.Genres.Add(genre);
                         }
                     }
                 }
 
-                db.Entry(song).State = EntityState.Modified;
+                db.Entry(mus).State = EntityState.Modified;
                 db.SaveChanges();
                 return View("Index", db.Songs.ToList());
             }
+            ViewBag.Genres = db.Genres.ToList();
             return View(song);
         }
 

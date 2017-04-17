@@ -9,5 +9,6 @@ namespace Gallery.Models
     public class GalleryContext : DbContext
     {
         public DbSet<User> Users { get; set; }
+        public DbSet<Album> Albums { get; set; }
     }
 }

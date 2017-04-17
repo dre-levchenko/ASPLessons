@@ -1,0 +1,28 @@
+﻿
+@{
+    ViewBag.Title = "Stats";
+}
+
+<h2>Stats</h2>
+
+<table class="table">
+    @for (int i = 0; i < ViewBag.MatchesList.Count; i++)
+    {
+        <tr>
+            <td>
+                @ViewBag.MatchesList[i].HomeTeam.Name VS @ViewBag.MatchesList[i].GuestTeam.Name
+            </td>
+            <td>
+                <div>
+                    @ViewBag.MatchesList[i].HomeTeam.Name : @( ((100 / ((double)@ViewBag.MatchesList[i].HomeWon + (double)@ViewBag.MatchesList[i].GuestWon + (double)@ViewBag.MatchesList[i].Draw)) * (double)@ViewBag.MatchesList[i].HomeWon).ToString("0.00") )%
+                </div>
+                <div>
+                    @ViewBag.MatchesList[i].GuestTeam.Name : @( ((100 / ((double)@ViewBag.MatchesList[i].HomeWon + (double)@ViewBag.MatchesList[i].GuestWon + (double)@ViewBag.MatchesList[i].Draw)) * (double)@ViewBag.MatchesList[i].GuestWon).ToString("0.00"))%
+                </div>
+                <div>
+                    Draw : @( ((100 / ((double)@ViewBag.MatchesList[i].HomeWon + (double)@ViewBag.MatchesList[i].GuestWon + (double)@ViewBag.MatchesList[i].Draw)) * (double)@ViewBag.MatchesList[i].Draw).ToString("0.00"))%
+                </div>
+            </td>
+        </tr>
+    }
+</table>

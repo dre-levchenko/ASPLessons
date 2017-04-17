@@ -1,4 +1,5 @@
 ﻿@model MusicPortal.Models.Song
+@using MusicPortal.Models
 
 @{
     ViewBag.Title = "Edit";
@@ -10,7 +11,7 @@
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>Song</h4>
         <hr />
@@ -52,7 +53,9 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Genres, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                    @foreach (var item in Model.Genres)
+                @{ 
+                    List<Genre> genres = ViewBag.Genres;
+                    foreach (var item in genres)
                     {
                         if (Model.Genres.Contains(item))
                         {
@@ -63,6 +66,7 @@
                             <input type="checkbox" name="selectedGenres" value="@item.Id" />@item.Name<br />
                         }
                     }
+                }
             </div>
         </div>
 

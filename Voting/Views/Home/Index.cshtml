@@ -1,0 +1,43 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<h2>Голосование</h2>
+@using (Html.BeginForm())
+{
+    <table class="table">
+        @for (int i = 0; i < ViewBag.MatchesList.Count; i++)
+        {
+            <tr>
+                <td>
+                    @ViewBag.MatchesList[i].HomeTeam.Name
+                </td>
+                <td>
+                    -
+                </td>
+                <td>
+                    @ViewBag.MatchesList[i].GuestTeam.Name
+                </td>
+                <td>
+                    @ViewBag.MatchesList[i].HomeTeam.Name
+                </td>
+                <td>
+                    @Html.RadioButton("[" + i + "].Value", 1)
+                </td>
+                <td>
+                    @ViewBag.MatchesList[i].GuestTeam.Name
+                </td>
+                <td>
+                    @Html.RadioButton("[" + i + "].Value", 2)
+                </td>
+                <td>
+                    Draw:
+                    @Html.RadioButton("[" + i + "].Value", 3, true)
+                </td>
+                @Html.Hidden("[" + i + "].Id", (int)ViewBag.MatchesList[i].Id)
+            </tr>
+        }
+    </table>
+
+    <button type="submit">Submit</button>
+}

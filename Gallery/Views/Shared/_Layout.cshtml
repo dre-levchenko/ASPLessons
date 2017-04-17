@@ -24,6 +24,10 @@
                     {
                         <li>@Html.ActionLink("Users", "Index", "Accounts")</li>
                     }
+                    <li>@Html.ActionLink("My", "Index", "Home")</li>
+                    <li>@Html.ActionLink("All", "All", "Albums")</li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
                     <li>@Html.ActionLink("Register", "Register", "Accounts")</li>
                     @if (Session["Name"] == null)
                     {

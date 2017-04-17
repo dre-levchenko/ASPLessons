@@ -157,12 +157,24 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AccountsController.cs" />
+    <Compile Include="Controllers\AlbumsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201704170929523_InitialCreate.cs" />
+    <Compile Include="Migrations\201704170929523_InitialCreate.Designer.cs">
+      <DependentUpon>201704170929523_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201704170951509_AddAlbumModels.cs" />
+    <Compile Include="Migrations\201704170951509_AddAlbumModels.Designer.cs">
+      <DependentUpon>201704170951509_AddAlbumModels.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\Album.cs" />
     <Compile Include="Models\GalleryContext.cs" />
     <Compile Include="Models\GalleryDbInitializer.cs" />
+    <Compile Include="Models\Image.cs" />
     <Compile Include="Models\Security\MD5Hasher.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\ViewModels\LoginModel.cs" />
@@ -204,8 +216,6 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Accounts\Delete.cshtml" />
     <Content Include="Views\Accounts\Details.cshtml" />
@@ -216,6 +226,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Albums\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -224,6 +235,14 @@
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201704170929523_InitialCreate.resx">
+      <DependentUpon>201704170929523_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201704170951509_AddAlbumModels.resx">
+      <DependentUpon>201704170951509_AddAlbumModels.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

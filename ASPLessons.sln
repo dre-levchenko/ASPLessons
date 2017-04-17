@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.26228.9
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Intro", "Intro\Intro.csproj", "{E9DF7FC2-5178-442E-A292-D49BEA649414}"
 EndProject
@@ -18,6 +18,12 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JSClassicClock", "JSClassicClock\JSClassicClock.csproj", "{5BB16C96-59C6-4DC3-B85F-62571943B7DD}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gallery", "Gallery\Gallery.csproj", "{378FCE05-A2D0-4A4F-A6D3-A3718383D302}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Voting", "Voting\Voting.csproj", "{0EF48D12-24A4-4BF1-AD56-5F8549E0A8CB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SignalRChat", "SignalRChat\SignalRChat.csproj", "{4314A7AA-9A0E-4FA1-8CD1-50AD8D0F0933}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Notebook", "Notebook\Notebook.csproj", "{D2707920-6B75-46D1-AABD-AB2B3D4FB19A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -57,6 +63,18 @@ Global
 		{378FCE05-A2D0-4A4F-A6D3-A3718383D302}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{378FCE05-A2D0-4A4F-A6D3-A3718383D302}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{378FCE05-A2D0-4A4F-A6D3-A3718383D302}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0EF48D12-24A4-4BF1-AD56-5F8549E0A8CB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0EF48D12-24A4-4BF1-AD56-5F8549E0A8CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0EF48D12-24A4-4BF1-AD56-5F8549E0A8CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0EF48D12-24A4-4BF1-AD56-5F8549E0A8CB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4314A7AA-9A0E-4FA1-8CD1-50AD8D0F0933}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4314A7AA-9A0E-4FA1-8CD1-50AD8D0F0933}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4314A7AA-9A0E-4FA1-8CD1-50AD8D0F0933}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4314A7AA-9A0E-4FA1-8CD1-50AD8D0F0933}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D2707920-6B75-46D1-AABD-AB2B3D4FB19A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D2707920-6B75-46D1-AABD-AB2B3D4FB19A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D2707920-6B75-46D1-AABD-AB2B3D4FB19A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D2707920-6B75-46D1-AABD-AB2B3D4FB19A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
