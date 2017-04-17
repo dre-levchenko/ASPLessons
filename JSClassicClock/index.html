@@ -17,17 +17,20 @@
         setInterval(drawClock, 1000);
 
         function drawClock() {
-          ctx.clearRect(0, 0, 1000, 1000);
-          drawFace(ctx, radius);
-          drawTime(ctx, radius);
+            clearScreen(ctx);
+            drawTime(ctx, radius);
+            drawFace(ctx, radius);
         }
 
-        function drawFace(ctx, radius) {
+        function clearScreen(ctx) {
             ctx.beginPath();
             ctx.arc(0, 0, radius, 0, 2 * Math.PI);
             ctx.fillStyle = 'white';
             ctx.fill();
+            ctx.fillStyle = 'black';
+        }
 
+        function drawFace(ctx, radius) {
           var smallRectSize = 2,
               bigRectSize = 5;
           for (var i = 0; i < 60; ++i)
