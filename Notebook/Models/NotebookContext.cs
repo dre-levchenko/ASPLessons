@@ -14,5 +14,10 @@ namespace Notebook.Models
         }
 
         public DbSet<Note> Notes { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Note>().ToTable("Notes");
+        }
     }
 }

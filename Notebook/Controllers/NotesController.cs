@@ -4,15 +4,46 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Notebook.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace Notebook.Controllers
 {
     public class NotesController : Controller
     {
-        // GET: Notes
-        public ActionResult Index()
+        NotebookContext db;
+
+        public NotesController(NotebookContext context)
         {
-            return View();
+            db = context;
+        }
+
+        // GET: Notes
+        public ActionResult Index(string searchString, int? page)
+        {
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            var notes = from n in db.Notes select n;
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                var inputDate = Convert.ToDateTime(searchString);
+                notes = notes.Where(n => n.Date.Year == inputDate.Year &&
+                    n.Date.Month == inputDate.Month && 
+                    n.Date.Day == inputDate.Day);
+            }
+
+            int pageSize = 5;
+
+            return View(new NotesViewModel()
+            {
+                Notes = notes.ToList(),
+                PageIndex == page ?? 1,
+                TotalPages == pageSize
+            });
+            //return View(new PaginatedList<Note>(notes.ToList(), notes.Count(), page ?? 1, pageSize));
+            //return View(await PaginatedList<Note>.CreateAsync(notes.AsNoTracking(), page ?? 1, pageSize));
         }
 
         // GET: Notes/Details/5

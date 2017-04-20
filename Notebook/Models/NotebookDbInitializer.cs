@@ -6,11 +6,11 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace Notebook.Models
 {
-    public class NotebookDbInitializer
+    public static class NotebookDbInitializer
     {
-        public static void Initialize(IServiceProvider serviceProvider)
+        public static void Initialize(NotebookContext context)
         {
-            var context = serviceProvider.GetService<NotebookContext>();
+            context.Database.EnsureCreated();
 
             if (!context.Notes.Any())
             {
