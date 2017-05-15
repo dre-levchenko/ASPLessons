@@ -51,7 +51,7 @@ namespace Gallery.Controllers
         {
             if (ModelState.IsValid)
             {
-                    var dbUser = db.Users.FirstOrDefault(u => u.Name == logon.Name);
+                var dbUser = db.Users.FirstOrDefault(u => u.Name == logon.Name);
                 
                 if (dbUser == null ||
                     dbUser.Password != MD5Hasher.ComputeHash(logon.Password))

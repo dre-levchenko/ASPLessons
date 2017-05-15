@@ -39,8 +39,8 @@ namespace Notebook.Controllers
             return View(new NotesViewModel()
             {
                 Notes = notes.ToList(),
-                PageIndex == page ?? 1,
-                TotalPages == pageSize
+                PageIndex = page ?? 1,
+                TotalPages = pageSize
             });
             //return View(new PaginatedList<Note>(notes.ToList(), notes.Count(), page ?? 1, pageSize));
             //return View(await PaginatedList<Note>.CreateAsync(notes.AsNoTracking(), page ?? 1, pageSize));
